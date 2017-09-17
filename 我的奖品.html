@@ -1,0 +1,70 @@
+<!doctype html>
+<html>
+<head>
+<title>我的奖品</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0,user-scalable=no'/>
+<meta http-equiv="X-UA-Compatible" content="edge" />
+<!--忽略将页面中的数字识别为电话号码-->
+<meta name="format-detection" content="telephone=no" />
+<!--忽略Android平台中对邮箱地址的识别-->
+<meta name="format-detection" content="email=no" />
+<link href="static/css/common_2.css" type="text/css" rel="stylesheet" />
+<link href="static/css/pop.css" type="text/css" rel="stylesheet" />
+<link href="static/css/personal.css" type="text/css" rel="stylesheet" />
+<script type="text/javascript" src="static/js/autoScreen.js"></script>
+<script type="text/javascript" src="static/js/jquery.2.1.4.min.js"></script>
+</head>
+<body style="background:#fff;">
+	
+<ul id="prize">
+	<li class="clearfix">
+		<div class="img fl">
+			<p>10<br />积分</p>
+		</div>
+		<div class="info fl">
+			<p>10积分</p>
+			<p>中奖日期：2017-05-26</p>
+		</div>
+		<div class="ctr fr">
+			<a href="javascript:;" class="active"><em>已发奖</em></a>
+		</div>
+	</li>
+	<li class="clearfix">
+		<div class="img fl">
+			<img src="static/images/bottled.jpg" />
+		</div>
+		<div class="info fl">
+			<p>瓶装水</p>
+			<p>中奖日期：2017-05-26</p>
+		</div>
+		<div class="ctr fr">
+			<a href="javascript:;"><em>未领取</em></a>
+		</div>
+	</li>
+	<li class="clearfix">
+		<div class="img fl">
+			<img src="static/images/barrelled.jpg" />
+		</div>
+		<div class="info fl">
+			<p>桶装水</p>
+			<p>中奖日期：2017-05-26 20:35:36</p>
+		</div>
+		<div class="ctr fr">
+			<a href="javascript:;" class="active"><em>已发奖</em></a>
+		</div>
+	</li>
+</ul>
+
+<script type="text/javascript">
+$(document).ready(function () {
+	//点击领奖
+	$("#prize .ctr  a").on("click",function(){
+		//后台领奖操作  成功后
+		$(this).addClass("active");
+		$(this).find("em").text("已领奖");
+	});
+});   
+</script>
+</body>
+</html>

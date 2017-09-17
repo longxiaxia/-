@@ -1,0 +1,151 @@
+<!doctype html>
+<html>
+<head>
+<title>销售订单</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0,user-scalable=no'/>
+<meta http-equiv="X-UA-Compatible" content="edge" />
+<!--忽略将页面中的数字识别为电话号码-->
+<meta name="format-detection" content="telephone=no" />
+<!--忽略Android平台中对邮箱地址的识别-->
+<meta name="format-detection" content="email=no" />
+<link href="static/css/common_2.css" type="text/css" rel="stylesheet" />
+<link href="static/css/personal.css" type="text/css" rel="stylesheet" />
+<script type="text/javascript" src="static/js/autoScreen.js"></script>
+<script type="text/javascript" src="static/js/jquery.2.1.4.min.js"></script>
+</head>
+<body>
+	
+<div id="sell">
+	<div class="list">
+		<div class="title">
+			订单号：472974294824296464
+			<span class="fr">已完成</span>
+		</div>
+		<ul>
+			<li>
+				<div class="mainCont clearfix">
+					<div class="img fl">
+						<img src="static/images/temp/list.png" />
+					</div>
+					<div class="info fr">
+						<p>卓玛泉桶装水12L*60桶</p>
+						<p>【赠品】卓玛泉桶装水12L*10桶；5100瓶装水330ML*5箱5100瓶装水330ML*5箱瓶装水330ML*</p>
+						<p class="price">￥4080</p>
+						<div class="sum">&times;1</div>
+					</div>
+				</div>
+				
+				<!--特惠购才有内容部分-->
+				<div class="saleCont clearfix">
+					<p class="title">特惠搭配购</p>
+					<p class="clearfix">
+						<span class="name fl">饮水机/常温款</span>
+						<span class="num fl">&times;1</span>
+						<span class="price fl">￥0</span>
+					</p>
+					<p class="clearfix">
+						<span class="name fl">智能生活/小宝机器人</span>
+						<span class="num fl">&times;10</span>
+						<span class="price fl">￥108600</span>
+					</p>
+				</div>	
+			</li>
+		</ul>
+		<div class="total clearfix">
+			<span class="fr">合计<em class="price">￥4080</em></span>
+			<span class="fr">共<em class="num">1</em>件商品</span>
+		</div>
+	</div>
+	
+	<div class="list">
+		<div class="title">
+			订单号：472974294824296464
+			<!--待支付加上类名active-->
+			<span class="fr active">待支付</span>
+		</div>
+		<ul>
+			<li>
+				<div class="mainCont clearfix">
+					<div class="img fl">
+						<img src="static/images/temp/list.png" />
+					</div>
+					<div class="info fr">
+						<p>卓玛泉桶装水12L*60桶</p>
+						<p>【赠品】卓玛泉桶装水12L*10桶；5100瓶装水330ML*5箱</p>
+						<p class="price">￥4080</p>
+						<div class="sum">&times;1</div>
+					</div>
+				</div>
+			</li>
+			<li>
+				<div class="mainCont clearfix">
+					<div class="img fl">
+						<img src="static/images/temp/list.png" />
+					</div>
+					<div class="info fr">
+						<p>卓玛泉桶装水12L*60桶</p>
+						<p>【赠品】卓玛泉桶装水12L*10桶；5100瓶装水330ML*5箱</p>
+						<p class="price">￥4080</p>
+						<div class="sum">&times;1</div>
+					</div>
+				</div>
+			</li>
+		</ul>
+		<div class="total clearfix">
+			<span class="fr">合计<em class="price">￥4080</em></span>
+			<span class="fr">共<em class="num">1</em>件商品</span>
+		</div>
+	</div>
+	
+	<div class="nomore">已经到底部了</div>
+</div>
+
+<script type="text/javascript">
+$(document).ready(function () {	
+//	//计算每一个订单的数量及总价
+//	$(".total .num").each(function(){
+//		$(this).text($(this).parents(".list").find("li").length);
+//	});
+//	
+//	$(".total .price").each(function(){
+//		var sum =0;
+//		var index = $(this).parents(".list").find("li").length;
+//		for(var i=0;i<index;i++){
+//			console.log(i);
+//			console.log($(this).parents(".list").find("li").eq(i).find(".price").text());
+//			sum = sum + parseFloat($(this).parents(".list").find("li").eq(i).find(".price").text().substring(1));
+//		}
+//		//$(this).text(sum.toFixed(2));
+//		$(this).text(sum);
+//	});
+	
+	
+	//滚动到底部插入第二页的8条数据内容
+	window.addEventListener('scroll', function() {
+		if($(window).scrollTop() + $(window).height() >=$(document).height()){
+			setTimeout(function () {
+				var html = '<div class="list">'
+						+'<div class="title">订单号：472974294824296464<span class="fr">已完成</span></div>'
+						+'<ul>'
+						+'<li>'
+						+'<div class="mainCont clearfix">'
+						+'<div class="img fl"><img src="static/images/temp/list.png" /></div>'
+						+'<div class="info fr"><p>卓玛泉桶装水12L*60桶</p><p>【赠品】卓玛泉桶装水12L*10桶；5100瓶装水330ML*5箱</p><p class="price">￥4080</p><div class="sum">&times;1</div></div>'
+						+'</div>'
+						+'</li>'
+						+'</ul>'
+						+'<div class="total clearfix"><span class="fr">合计<em class="price">￥4080</em></span><span class="fr">共<em class="num">1</em>件商品</span></div>'
+						+'</div>';				
+				$('#sell').append(html);
+			},1000);
+		}
+		
+		//最后一页加上
+		//$(".nomore").addClass("acitve");
+	}, false);	
+});
+</script>
+
+</body>
+</html>

@@ -1,0 +1,324 @@
+<!doctype html>
+<html>
+<head>
+<title>预约配送</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0,user-scalable=no'/>
+<meta http-equiv="X-UA-Compatible" content="edge" />
+<!--忽略将页面中的数字识别为电话号码-->
+<meta name="format-detection" content="telephone=no" />
+<!--忽略Android平台中对邮箱地址的识别-->
+<meta name="format-detection" content="email=no" />
+<link href="static/css/common_2.css" type="text/css" rel="stylesheet" />
+<link href="static/css/css_2.css" type="text/css" rel="stylesheet" />
+<link href="static/css/pop.css" type="text/css" rel="stylesheet" />
+<script type="text/javascript" src="static/js/autoScreen.js"></script>
+<script type="text/javascript" src="static/js/jquery.2.1.4.min.js"></script>
+<style type="text/css">
+	.box{width:5.6rem;background:#fff;padding:0.4rem;margin-left:-2.8rem;position:fixed;left:50%;top:3rem;z-index:12;display:none;}
+	.box.active{display:block;}
+	.box p{font-size:0.3rem;line-height:0.4rem;text-align:center;margin-bottom:0.3rem;}
+	.box .control a{font-size:0.3rem;letter-spacing:1px;width:2.3rem;line-height:0.7rem;color:#5BBAD9;background:#fff;border:0.02rem solid #5BBAD9;	}
+	.box .control a.ok{color:#fff;background:#5BBAD9;margin-left:0.2rem;}
+</style>
+</head>
+<body>
+	
+<div id="delivery">
+	<div class="tip"></div>
+	
+	<div class="address">
+		<p>
+			<span>美国队长</span>
+			<span>13623234545</span>
+		</p>	
+		<p class="set">广州省深圳市南山区大冲商务楼C座大冲商务楼C座大冲商务楼C座<em>更换</em></p>
+		<a href="javascript:;" class="check"><em></em>默认收货地址</a>
+	</div>
+	<!--没有地址的时候-->
+	<!--<div class="address no">
+		<em></em>
+		<i></i>
+		<p>请添加你的收货地址</p>
+	</div>	-->
+
+	<div class="rule">
+		<p>当前所选配送区域配送规则：</p>
+		<p>1.桶装水<span>4桶</span>起配，不足则1次配完。赠品5100瓶装水，单独10箱起配，在桶装水剩余数量大于4桶的情况下，可任意随桶装水配送。</p>
+		<p>2.当日<span>16:30前</span>提交配送申请预计24小时内送达，当日<span>16:30</span>后提交配送申请预计<span>48小时内</span>送达</p>
+	</div>
+	
+	<!--k属性储存这个地区最低起配几桶  j属性储存这个地区最低起配几箱-->
+	<ul class="list" k="4" j="10">
+		<!--是桶装水cate=1; 瓶装水 ：cate=2-->
+		<li class="clearfix" cate="1">
+			<div class="img fl">
+				<img src="static/images/temp/list.png" />
+			</div>
+			<div class="info fl">
+				<p>卓玛泉桶装水12L</p>
+				<p>卓玛泉桶装水12L*60桶</p>
+				<p>剩余数量：<span class="sum">3</span></p>
+			</div>
+			<div class="control clearfix">
+				<a href="javascript:;" class="minus">-</a>
+				<input type="text" readonly="true" value="1" />
+				<a href="javascript:;" class="add">+</a>
+			</div>
+		</li>
+		<li class="clearfix" cate="2">
+			<div class="img fl">
+				<img src="static/images/temp/list.png" />
+			</div>
+			<div class="info fl">
+				<p>瓶装水</p>
+				<p>卓玛泉桶装水12L*60桶</p>
+				<p>剩余数量：<span class="sum">12</span></p>
+			</div>
+			<div class="control clearfix">
+				<a href="javascript:;" class="minus">-</a>
+				<input type="text" readonly="true" value="1"  />
+				<a href="javascript:;" class="add">+</a>
+			</div>
+		</li>
+		<li class="clearfix" cate="1">
+			<div class="img fl">
+				<img src="static/images/temp/list.png" />
+			</div>
+			<div class="info fl">
+				<p>卓玛泉桶装水12L</p>
+				<p>卓玛泉桶装水12L*60桶</p>
+				<p>剩余数量：<span class="sum">8</span></p>
+			</div>
+			<div class="control clearfix">
+				<a href="javascript:;" class="minus">-</a>
+				<input type="text" readonly="true" value="1"  />
+				<a href="javascript:;" class="add">+</a>
+			</div>
+		</li>
+	</ul>	
+	
+	<!--<div class="more">
+		<p>显示全部 >></p>
+	</div>-->
+	
+	<div class="message">
+		<textarea rows="4" placeholder="该次配送有特别要求请在此处留言。。。"></textarea>
+	</div>
+	
+	<div class="submit">
+		<a href="javascript:;" class="radius">确认配送</a>
+	</div>
+	
+</div>
+
+
+<div id="mask"></div>
+<!--确定配送窗口-->
+<div class="radius okBox box">
+    <p>已确认配送信息，现在下单</p>
+    <div class="control clearfix">
+        <a href="javascript:;" class="cancel fl radius">再看看</a>
+        <a href="javascript:;" id="sure_btn" class="ok fr radius">确定</a>
+    </div>
+</div>
+
+<div class="radius tipBox box">
+	<!--<p class="subTitle"><em>HONORABLE MEMBER</em></p>-->
+	<!--<div class="close"></div>-->
+	<p class="title">尊敬的会员</p>
+	<p style="text-indent:2em;">卓玛泉会员中心将全面升级，为了更好的服务您，您名下的</p>
+	<ul>
+		<li class="clearfix">
+			<span class="fl">水卡:</span>
+			<input type="text" value="4252959295022002" readonly="true" class="fr" />
+		</li>
+		<li class="clearfix">
+			<span class="fl">水卡:</span>
+			<input type="text" value="4252959295022002" readonly="true" class="fr" />
+		</li>
+		<li class="clearfix">
+			<span class="fl">水卡:</span>
+			<input type="text" value="4252959295022002" readonly="true" class="fr" />
+		</li>
+		<li class="clearfix">
+			<span class="fl">水卡:</span>
+			<input type="text" value="4252959295022002" readonly="true" class="fr" />
+		</li>
+		<li class="clearfix">
+			<span class="fl">水卡:</span>
+			<input type="text" value="4252959295022002" readonly="true" class="fr" />
+		</li>
+	</ul>
+   	<p style="margin-bottom:0.3rem;">物品总数将进行合并显示。如您需把水卡独立出来。<a href="javascript:;" class="call"><em>请您联系客服 - 4008075100</em></a></p>
+   	<a href="javascript:;" class="know">我知道了</a>
+</div>
+
+<!--拨打电话确认窗口-->
+<div class="radius callBox box">
+    <p>拨打客服电话400-807-5100</p>
+    <div class="control clearfix">
+        <a href="javascript:;" class="cancelCall fl radius">取消</a>
+        <a href="tel:400-807-5100" class="ok fr radius">确定</a>
+    </div>
+</div>
+
+
+<script type="text/javascript">
+    //点击预约配送按钮
+    $(".submit a").click(function(){
+        $("#mask").addClass("active");
+        $(".okBox").addClass("active");
+    })
+	//取消操作
+    $(".cancel").click(function(){
+        $("#mask").removeClass("active");
+        $(".box").removeClass("active");
+    })
+
+    //点击查看规则
+    $(".tip").click(function(){
+        $("#mask").addClass("active");
+        $(".tipBox").addClass("active");
+    })
+	//点击我知道了
+    $("a.know").click(function(){
+        $("#mask").removeClass("active");
+        $(".tipBox").removeClass("active");
+    })
+
+	//拨打电话
+    $(".call").click(function(){
+        $(".tipBox").removeClass("active");
+        $(".callBox").addClass("active");
+    })
+	//取消拨打电话
+    $(".cancelCall").click(function(){
+        $(".tipBox").addClass("active");
+        $(".callBox").removeClass("active");
+    })    
+
+    //点击遮罩层  规则取消
+//  $("body").on("click",".mask",function(){
+//      $(".tipBox").slideUp("fast",function(){
+//      	$(".mask").removeClass("active mask");
+//      });
+//  })
+
+	//最低起配桶装水桶数
+	var baseA = Number($(".list").attr("k"));
+	//最低起配瓶装水桶数
+	var baseB = Number($(".list").attr("j"));
+	//设置配送数量的默认值
+	$(".list li").each(function(){
+		if($(this).attr('cate')==1){
+			if(Number($(this).find(".info .sum").text())>=baseA){
+				$(this).find("input[type='text']").val(baseA);
+			}else{
+				$(this).find("input[type='text']").val($(this).find(".info .sum").text());
+			};
+		}else if($(this).attr('cate')==2){
+			if(Number($(this).find(".info .sum").text())>=baseB){
+				$(this).find("input[type='text']").val(baseB);
+			}else{
+				$(this).find("input[type='text']").val($(this).find(".info .sum").text());
+			};
+		}else{//除外
+			$(this).find("input[type='text']").val("0");
+		};
+	});
+	
+	//数量减
+	$(".minus").on("click",function(){
+		var temp = Number($(this).siblings("input").val());
+		var cate = Number($(this).parents("li").attr("cate"));
+		if(cate==1){//是桶装水
+			if(temp>baseA){
+				temp = temp-1;
+				$(this).siblings("input[type='text']").val(temp);
+			}else{
+				$(this).siblings("input[type='text']").val(0);
+			};
+		}else if(cate==2){//是瓶装水
+			if(temp>baseB){
+				temp = temp-1;
+				$(this).siblings("input[type='text']").val(temp);
+			}else{
+				$(this).siblings("input[type='text']").val(0);
+			};
+		}else{//除外
+			if(temp>0){
+				temp = temp-1;
+				$(this).siblings("input[type='text']").val(temp);
+			};	
+		};
+		check();
+	});
+	
+	//数量加
+	$(".add").on("click",function(){
+		var temp = Number($(this).siblings("input[type='text']").val());
+		var level = Number($(this).parents("li").find(".info .sum").text());
+		var cate = Number($(this).parents("li").attr("cate"));
+		if(cate==1){//是桶装水
+			if(temp==0){
+				if(level>=baseA){
+					$(this).siblings("input[type='text']").val(baseA);
+				}else{
+					$(this).siblings("input[type='text']").val(level);
+				}
+			}else if(temp<level&&temp!=0){
+				temp = temp+1;
+				$(this).siblings("input[type='text']").val(temp); 
+			}
+		}else if(cate==2){//是瓶装水
+			if(temp==0){
+				if(level>=baseB){
+					$(this).siblings("input[type='text']").val(baseB); 	
+				}else{
+					$(this).siblings("input[type='text']").val(level);
+				}
+			}else if(temp<level&&temp!=0){
+				temp = temp+1;
+				$(this).siblings("input[type='text']").val(temp); 
+			}
+		}else{//除外
+			if(temp<level){
+				temp = temp+1;
+				$(this).siblings("input[type='text']").val(temp); 			
+			}			
+		}
+		check();
+	});
+
+	//数量为0  不能再减   减符号变色      数量为剩余数量  不能再加  加符号变色
+	function check(){
+	 	$(".list li").each(function(){
+			if($(this).find("input[type='text']").val()==0){
+				$(this).find("input[type='text']").siblings(".minus").addClass("disabled");
+			}else{
+				$(this).find("input[type='text']").siblings(".minus").removeClass("disabled");
+			}
+			
+			var store = $(this).find(".info .sum").text();
+			if($(this).find("input[type='text']").val()==store){
+				$(this).find("input[type='text']").siblings(".add").addClass("disabled");
+			}else{
+				$(this).find("input[type='text']").siblings(".add").removeClass("disabled");
+			}
+		});		
+	}
+	check();
+	
+	//点击显示更多  暂时不做  先留着
+//	$(".more p").on("click",function(){
+//		console.log($(".list").css("height"));		
+//		
+//		$(".list").css({"height":"auto"});
+//		//$(".list").animate({height:"auto"},200);
+//		$(".more p").addClass("active");
+//	});
+</script>
+
+</body>
+</html>

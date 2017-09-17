@@ -1,0 +1,82 @@
+<!doctype html>
+<html>
+<head>
+<title>修改卓玛号</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0,user-scalable=no'/>
+<meta http-equiv="X-UA-Compatible" content="edge" />
+<!--忽略将页面中的数字识别为电话号码-->
+<meta name="format-detection" content="telephone=no" />
+<!--忽略Android平台中对邮箱地址的识别-->
+<meta name="format-detection" content="email=no" />
+<link href="static/css/common_2.css" type="text/css" rel="stylesheet" />
+<link href="static/css/pop.css" type="text/css" rel="stylesheet" />
+<link href="static/css/personal.css" type="text/css" rel="stylesheet" />
+<script type="text/javascript" src="static/js/autoScreen.js"></script>
+<script type="text/javascript" src="static/js/jquery.2.1.4.min.js"></script>
+<script type="text/javascript" src="static/js/personal.js"></script>
+<script type="text/javascript" src="static/js/common-phper-use.js"></script>
+</head>
+<body>
+	
+<div id="editNumber">
+	<div class="warn">错误警告</div>
+	
+	<div class="number clearfix">
+		<span class="fl">卓玛号</span>
+		<input type="text"  value="ZM426942946294629469" />
+	</div>
+	
+	<div class="tip">*卓玛号只有一次修改机会</div>
+	
+	<a href="javascript:;" class="ok">确定</a>
+</div>
+
+<script type="text/javascript">
+$(document).ready(function () {	
+	$(".number input").get(0).focus();
+	var flag = true;
+	$(".number input").on("keydown",function(){
+		if(flag){
+			$(this).val("");
+			flag = false;
+		}
+	});
+	
+	//点击确认
+	$(".ok").on("click",function(){
+		//前台先验证判断一下      
+		if(!$(".number input").val().trim()){
+			$(".warn").addClass("active");
+			$(".warn").text("卓玛号不能为空");
+			return;
+		}
+		
+		var number = /^[a-zA-Z0-9]{6,20}$/.test($.trim($(".number input").val()));
+		if(!number){
+			$(".warn").addClass("active");
+			$(".warn").text("卓玛号由6-20位字母和数字组成");
+			return;
+		}
+		
+		//后台判断？？？
+//		if(){
+//			$(".warn").text("此卓玛号已存在，推荐您使用用户输入内容+3位随机数");
+//		}
+		
+		//弹出确定修改卓玛号？窗口
+		$.pop({
+			msg:'确定修改卓玛号？', 
+			btn_num: 2,
+			callback_confirm:function(){
+				//后台
+			},
+			callback_cancel:function(){
+				
+			}
+		});
+	});		
+})
+</script>
+</body>
+</html>

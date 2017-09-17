@@ -1,0 +1,154 @@
+<!doctype html>
+<html>
+<head>
+<title>积分商城</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0,user-scalable=no'/>
+<meta http-equiv="X-UA-Compatible" content="edge" />
+<!--忽略将页面中的数字识别为电话号码-->
+<meta name="format-detection" content="telephone=no" />
+<!--忽略Android平台中对邮箱地址的识别-->
+<meta name="format-detection" content="email=no" />
+<link href="static/css/common_2.css" type="text/css" rel="stylesheet" />
+<link rel="stylesheet" href="static/css/swiper.min.css">
+<link href="static/css/integral.css" type="text/css" rel="stylesheet" />
+<link href="static/css/pop.css" type="text/css" rel="stylesheet" />
+<script type="text/javascript" src="static/js/autoScreen.js"></script>
+<script type="text/javascript" src="static/js/jquery.2.1.4.min.js"></script>
+<script type="text/javascript" src="static/js/swiper.min.js"></script>
+<script type="text/javascript" src="static/js/intergral.js"></script>
+<script type="text/javascript" src="static/js/common-phper-use.js"></script>
+</head>
+<body>
+<div id="top"></div>
+
+<div id="integral">
+	<div class="title">
+		积分：<span>990</span>
+		<a href="javascript:;" class="fr">抢夺积分秘籍</a>
+		<a href="javascript:;" class="fr">积分明细</a>
+	</div>
+	
+	<div class="banner">
+		<div class="swiper-container">
+		    <div class="swiper-wrapper">
+		        <a href="javascript:;" class="swiper-slide">
+		        	<img src="static/images/temp/integral.jpg" />
+		        </a>
+		        <a href="javascript:;" class="swiper-slide">
+		        	<img src="static/images/temp/integral.jpg" />	
+		        </a>
+		        <a href="javascript:;" class="swiper-slide">
+		       		<img src="static/images/temp/integral.jpg" />	
+		        </a>
+		    </div>
+		    <!--分页器 -->
+		    <div class="swiper-pagination"></div>
+		</div>
+	</div>	
+
+	<div class="nav clearfix">
+		<a href="javascript:;" class="active fl"><em></em>兑实物</a>
+		<a href="javascript:;" class="fl"><em></em>兑电子券</a>
+		<a href="javascript:;" class="fr"><em></em>全部</a>
+		<!--下部线 点击滑动-->
+		<i></i>
+	</div>
+	
+	<ul class="content">
+		<li class="clearfix">
+			<div class="img fl">
+				<img src="static/images/temp/list.png" />
+			</div>
+			<div class="info fr">
+				<p>卓玛泉桶装水12L*60桶卓玛泉桶装水桶卓玛泉桶装水12L*60桶<em class="recharge"></em></p>
+				<p>消耗积分:<span>990</span><span>990</span></p>
+			</div>		
+			<a href="javascript:;"><em>兑换</em></a>
+		</li>
+		<li class="clearfix">
+			<div class="img fl">
+				<img src="static/images/temp/list.png" />
+			</div>
+			<div class="info fr">
+				<p>卓玛泉桶装水12L*60桶桶桶桶桶桶桶<em class="recharge"></em></p>
+				<p>消耗积分:<span>1990</span><span>990</span></p>
+			</div>		
+			<a href="javascript:;"><em>兑换</em></a>
+		</li>
+		<li class="clearfix">
+			<div class="img fl">
+				<img src="static/images/temp/list.png" />
+			</div>
+			<div class="info fr">
+				<p>越南进口百香果 精选一级大果 5斤/30.<em class="recharge"></em></p>
+				<p>消耗积分:<span>991</span><span>990</span></p>
+			</div>		
+			<a href="javascript:;"><em>兑换</em></a>
+		</li>
+		<li class="clearfix">
+			<div class="img fl">
+				<img src="static/images/temp/list.png" />
+			</div>
+			<div class="info fr">
+				<p>卓玛泉桶装水12L*60桶<em class="express"></em></p>
+				<p>消耗积分:<span>990</span><span>990</span></p>
+			</div>		
+			<a href="javascript:;"><em>兑换</em></a>
+		</li>
+	</ul>
+	
+	<div class="nomore">已经到底部了</div>
+</div>
+
+<script type="text/javascript">
+$(document).ready(function () {
+    //点击兑换 判断出现提示
+    var integral = Number($(".title span").text());
+    $("body").on("click","#integral .content li>a",function(){ 
+    	$(".content li>a").removeClass("active");
+    	$(this).addClass("active");
+    	if(Number($(this).parent().find("p span").text())>integral){
+			$.pop({
+				msg:'抱歉，你的积分不足以兑换此商品', 
+				btn_num: 2,
+				txt_confirm:'查看商品',
+				txt_cancel:'赚取积分',
+				callback_confirm:function(){
+					//跳转到查看商品
+				},
+				callback_cancel:function(){
+					//跳转到赚取积分
+				}
+			});
+    	}else{
+    		//$(this).attr({"href":$(this).attr("url")});
+    	}
+    });   
+	
+	
+    //滚动到底部插入第二页的4条数据内容
+	window.addEventListener('scroll', function() {
+		if($(window).scrollTop() + $(window).height() >=$(document).height()){
+			setTimeout(function () {	
+				var html = '<li class="clearfix">'
+						+ '<div class="img fl">'
+						+ '<img src="static/images/temp/list.png" />'
+						+ '</div>'
+						+ '<div class="info fr">'
+						+ '<p>下一页的内容<em class="express"></em></p>'
+						+ '<p>消耗积分:<span>990</span><span>990</span></p>'
+						+ '</div>'
+						+ '<a href="javascript:;"><em>兑换</em></a>'
+						+ '</li>';
+				$('.content').append(html);
+			},1000);
+		}
+		
+		//最后一页加上
+		//$(".nomore").addClass("acitve");
+	}, false);
+});
+</script>
+</body>
+</html>

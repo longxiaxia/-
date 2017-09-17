@@ -1,0 +1,157 @@
+<!doctype html>
+<html>
+<head>
+<title>常见问题</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0,user-scalable=no'/>
+<meta http-equiv="X-UA-Compatible" content="edge" />
+<!--忽略将页面中的数字识别为电话号码-->
+<meta name="format-detection" content="telephone=no" />
+<!--忽略Android平台中对邮箱地址的识别-->
+<meta name="format-detection" content="email=no" />
+<link href="static/css/common_2.css" type="text/css" rel="stylesheet" />
+<link href="static/css/pop.css" type="text/css" rel="stylesheet" />
+<link href="static/css/personal.css" type="text/css" rel="stylesheet" />
+<script type="text/javascript" src="static/js/autoScreen.js"></script>
+<script type="text/javascript" src="static/js/jquery.2.1.4.min.js"></script>
+<script type="text/javascript" src="static/js/common-phper-use.js"></script>
+</head>
+<body>
+	
+<div id="ask">
+	<div class="nav clearfix">
+		<a href="javascript:;" class="active fl">常见问题</a>
+		<a href="javascript:;" class="fr">我要反馈</a>
+		<i></i>
+	</div>
+	
+	<ul class="content problem active">
+		<li>
+			<div class="question">
+				积分如何查询？<em></em>
+			</div>
+			<div class="answer">
+				进入卓玛泉会员中心公众号，点击菜单栏<a href="javascript:;"><em>官方商城</em></a>-点击<a href="javascript:;"><em>个人中心</em></a>-点击<a href="javascript:;"><em>我的积分</em></a>进行查看。
+			</div>
+		</li>
+		<li>
+			<div class="question">
+				积分如何查询？<em></em>
+			</div>
+			<div class="answer">
+				进入卓玛泉会员中心公众号，点击菜单栏<a href="javascript:;"><em>官方商城</em></a>-点击<a href="javascript:;"><em>个人中心</em></a>-点击<a href="javascript:;"><em>我的积分</em></a>进行查看。
+			</div>
+		</li>
+			<li>
+			<div class="question">
+				积分如何查询？<em></em>
+			</div>
+			<div class="answer">
+				进入卓玛泉会员中心公众号，点击菜单栏<a href="首页.html"><em>官方商城</em></a>-点击<a href="javascript:;"><em>个人中心</em></a>-点击<a href="javascript:;"><em>我的积分</em></a>进行查看。
+			</div>
+		</li>
+	</ul>
+	
+	<div class="content feedback">
+		<div class="choose">
+			<p>请选择问题类型</p>
+		</div>
+		<p>请留下您宝贵的意见或建议</p>
+		<div class="mess">
+			<textarea placeholder="请留下您宝贵的意见或建议" rows="4" cols=""></textarea>
+		</div>
+		
+		<a href="javascript:;" class="submit">提交反馈</a>
+	</div>		
+</div>
+
+<div id="mask"></div>
+<div id="backPop">
+	<ul>
+		<li>请选择问题类型</li>
+		<li>软瓶问题</li>
+		<li>水机问题</li>
+		<li>在线购买问题</li>
+		<li>配送问题</li>
+		<li>合作平台购买问题</li>
+	</ul>
+</div>
+
+<script type="text/javascript">
+    //兑换类别切换 效果
+    var index = 0;
+    var htmlFont = parseFloat(document.getElementsByTagName('html')[0].style.fontSize);
+    $(".nav a").on("click",function(){
+    	$(this).addClass("active").siblings().removeClass("active");
+    	$(".content").removeClass("active");
+    	index = $(this).index();
+    	if(index == 0){
+    		$(this).parent().find("i").animate({left:htmlFont*1},300);
+    		$(".problem").addClass("active");
+    	}else if(index == 1){
+    		$(this).parent().find("i").animate({left:htmlFont*4},300);
+    		$(".feedback").addClass("active");
+    	}
+    });
+    
+    
+    //常见问题----点击问题 出现答案
+    $(".problem li").on("click",function(e){
+    	if(!$(this).hasClass("active")){
+    		$(".problem li").removeClass("active");
+    		$(this).addClass("active");
+	    	$(".problem li .answer").slideUp(300);
+	    	$(this).find(".answer").slideDown(300);     	
+    	
+    	}
+    }); 
+    //点击箭头 单个答案收起
+    $(".question em").on("click",function(e){
+    	if($(this).parents("li").hasClass("active")){
+    		$(this).parents("li").removeClass("active");
+    		$(this).parents("li").find(".answer").slideUp(300);
+    		tempIndex = null;
+    	}else{
+    		$(".problem li").removeClass("active");
+    		$(".problem li .answer").slideUp(300);
+    		$(this).parents("li").addClass("active");
+    		$(this).parents("li").find(".answer").slideDown(300);
+    	}
+    	return false;
+    });    
+
+    //我要反馈----选择问题类型  下部弹出
+    $(".feedback .choose p").on("click",function(){
+    	$("#mask").addClass("active");
+    	$("#backPop").slideToggle(300);
+    });
+	//我要反馈----选择问题类型 >>>确定
+	$("#backPop ul li").on("click",function(){
+		$("#mask").removeClass("active");
+		$("#backPop").slideToggle(300);
+		
+		$(".feedback .choose p").text($(this).text());
+	});	
+	//我要反馈----选择问题类型 >>>取消       ----- 点击遮罩层 取消的选择
+	$("#mask").on("click",function(){
+		$("#mask").removeClass("active");
+		$("#backPop").slideToggle(300);
+	});	
+    
+	//提交反馈 
+	$(".submit").on("click",function(){
+		$.pop({
+			msg:'感谢您提出的宝贵意见，我们会认真考虑', 
+			btn_num:1,
+			hold_time: 1500,
+			tpl_msg: '<div id="box" class="radius">\
+                        <p data-msg-box="1" style="margin-bottom:0;"></p>\
+                    </div>'
+		});
+	});    
+    
+    
+</script>
+
+</body>
+</html>

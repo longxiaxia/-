@@ -1,0 +1,90 @@
+<!doctype html>
+<html>
+<head>
+<title>南航里程兑换</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0,user-scalable=no'/>
+<meta http-equiv="X-UA-Compatible" content="edge" />
+<!--忽略将页面中的数字识别为电话号码-->
+<meta name="format-detection" content="telephone=no" />
+<!--忽略Android平台中对邮箱地址的识别-->
+<meta name="format-detection" content="email=no" />
+<link href="static/css/common_2.css" type="text/css" rel="stylesheet" />
+<link href="static/css/pop.css" type="text/css" rel="stylesheet" />
+<link href="static/css/integral.css" type="text/css" rel="stylesheet" />
+<script type="text/javascript" src="static/js/autoScreen.js"></script>
+<script type="text/javascript" src="static/js/jquery.2.1.4.min.js"></script>
+</head>
+<body>
+	
+<div id="mExchange">
+	<div class="title">
+		本服务由卓玛泉联合南航里程中心为您提供
+		<a href="javascript:;" class='fr'>须知</a>
+	</div>
+	
+	<div class="formula clearfix">
+		<span class="fl">兑换公式：</span>
+		<span class="fr">1200卓玛泉积分 = 100南航里程<br />(100的整数倍兑换)</span>
+	</div>
+	
+	<div class="allow clearfix">
+		<span class="fl">您可兑换</span>
+		<a href="javascript:;" class="fl">100</a>
+		<span class="fr">需要卓玛泉积分：1200</span>
+	</div>
+	
+	<ul class="info">
+		<li class="clearfix">
+			<span class="fl">南航明珠会员账号：</span>
+			<input type="text" class="fr" readonly="true" value="342692462964462292" />
+		</li>
+		<li class="clearfix">
+			<span class="fl">南航明珠会员真实姓名：</span>
+			<input type="text" class="fr" />
+		</li>
+	</ul>
+
+	<a href="javascript:;">点击兑换</a>
+</div>
+
+<div id="mask"></div>
+<!--性别选择窗口-->
+<ul id="integralPop">
+	<li>100</li>
+	<li>200</li>
+	<li>300</li>
+	<li>400</li>
+	<li>500</li>
+	<li>600</li>
+	<li>700</li>
+	<li>800</li>
+	<li>900</li>
+	<li>1000</li>
+	<li>1100</li>
+	<li>1200</li>
+</ul>
+
+<script type="text/javascript">
+	//可兑换积分选择下拉
+	$(".allow a").on("click",function(){
+		$("#mask").addClass("active");
+		$("#integralPop").slideToggle(300);
+	});		
+	//积分选择 >>>确定
+	$("#integralPop li").on("click",function(){
+		$("#mask").removeClass("active");
+		$("#integralPop").slideToggle(300);
+		
+		$(".allow a").text($(this).text());
+	});	
+	//点击遮罩层>>>取消
+	$("#mask").on("click",function(){
+		$("#mask").removeClass("active");
+		$("#integralPop").slideToggle(300);
+	});	
+
+	
+</script>
+</body>
+</html>

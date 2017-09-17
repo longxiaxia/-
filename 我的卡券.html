@@ -1,0 +1,76 @@
+<!doctype html>
+<html>
+<head>
+<title>我的卡券</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0,user-scalable=no'/>
+<meta http-equiv="X-UA-Compatible" content="edge" />
+<!--忽略将页面中的数字识别为电话号码-->
+<meta name="format-detection" content="telephone=no" />
+<!--忽略Android平台中对邮箱地址的识别-->
+<meta name="format-detection" content="email=no" />
+<link href="static/css/common_2.css" type="text/css" rel="stylesheet" />
+<link href="static/css/integral.css" type="text/css" rel="stylesheet" />
+<script type="text/javascript" src="static/js/autoScreen.js"></script>
+<script type="text/javascript" src="static/js/jquery.2.1.4.min.js"></script>
+</head>
+<body>
+	
+<ul id="coupon">
+	<li>
+		<div class="fl">
+			<P class="name"><span>50</span>优惠券</P>
+			<p class="condition">满<span>500</span>可用</p>
+			<p class="time">使用期限：2016/10/09</p>
+		</div>
+		<div class="fr">
+			<a href="javascript:;"><em>立即使用</em></a>
+		</div>
+		<div class="clear"></div>
+		<!--分割线-->
+		<i></i>
+	</li>
+	<li>
+		<div class="fl">
+			<P class="name"><span>100</span>优惠券</P>
+			<p class="condition">满<span>1000</span>可用</p>
+			<p class="time">使用期限：2016/12/30</p>
+		</div>
+		<div class="fr">
+			<a href="javascript:;"><em>立即使用</em></a>
+		</div>
+		<div class="clear"></div>
+		<!--分割线-->
+		<i></i>
+	</li>
+</ul>
+<div class="nomore">已经到底部了</div>
+
+<script type="text/javascript">
+	//滚动到底部插入第二页的5条数据内容
+	window.addEventListener('scroll', function() {
+		if($(window).scrollTop() + $(window).height() >=$(document).height()){
+			setTimeout(function () {			
+				var html = '<li>'
+						+'<div class="fl">'
+						+'<P class="name"><span>100</span>优惠券</P>'
+						+'<p class="condition">满<span>1000</span>可用</p>'
+						+'<p class="time">使用期限：2016/12/30</p>'
+						+'</div>'
+						+'<div class="fr">'
+						+'<a href="javascript:;"><em>立即使用</em></a>'
+						+'</div>'
+						+'<div class="clear"></div>'
+						+'<i></i>'
+						+'</li>';				
+				$('#coupon').append(html);
+			},1000);
+		}
+		//最后一页加上
+		//$(".nomore").addClass("acitve");
+	}, false);
+
+</script>
+
+</body>
+</html>

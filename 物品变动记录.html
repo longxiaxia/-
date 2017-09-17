@@ -1,0 +1,88 @@
+<!doctype html>
+<html>
+<head>
+<title>物品变动记录</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0,user-scalable=no'/>
+<meta http-equiv="X-UA-Compatible" content="edge" />
+<!--忽略将页面中的数字识别为电话号码-->
+<meta name="format-detection" content="telephone=no" />
+<!--忽略Android平台中对邮箱地址的识别-->
+<meta name="format-detection" content="email=no" />
+<link href="static/css/common_2.css" type="text/css" rel="stylesheet" />
+<link href="static/css/personal.css" type="text/css" rel="stylesheet" />
+<script type="text/javascript" src="static/js/autoScreen.js"></script>
+<script type="text/javascript" src="static/js/jquery.2.1.4.min.js"></script>
+</head>
+<body>
+	
+<ul id="goodsLog">
+	<li>
+		<div class="clearfix">
+			<span class="fl">卓玛泉12L桶装水<i>+60</i></span>
+			<span class="time fr">2017-02-22 11:46</span>
+		</div>
+		<div class="clearfix">
+			<span class="way fl">购买套餐</span>
+			<a href="javascript:;" class="fr"><em>查看详情</em></a>
+		</div>
+	</li>
+	
+	<li>
+		<div class="clearfix">
+			<span class="fl">5100西藏天然冰川水<i>+30</i></span>
+			<span class="time fr">2017-02-22 11:46</span>
+		</div>
+		<div class="clearfix">
+			<span class="way fl">购买套餐</span>
+			<a href="javascript:;" class="fr"><em>查看详情</em></a>
+		</div>
+	</li>	
+	
+	<li>
+		<div class="clearfix">
+			<span class="fl">卓玛泉12L桶装水<i class="minus">-10</i></span>
+			<span class="time fr">2017-02-22 11:46</span>
+		</div>
+		<div class="clearfix">
+			<span class="way fl">配送订单</span>
+			<a href="javascript:;" class="fr"><em>查看详情</em></a>
+		</div>
+	</li>
+
+	<li>
+		<div class="clearfix">
+			<span class="fl">卓玛泉12L桶装水<i>+6</i></span>
+			<span class="time fr">2017-02-22 11:46</span>
+		</div>
+		<div class="clearfix">
+			<span class="way fl">好友赠送</span>
+			<a href="javascript:;" class="fr"><em>查看详情</em></a>
+		</div>
+	</li>
+</ul>
+
+<div class="nomore">已经到底部了</div>
+
+<script type="text/javascript">
+$(document).ready(function () {	
+	//滚动到底部插入第二页的20条数据内容
+	window.addEventListener('scroll', function() {
+		if($(window).scrollTop() + $(window).height() >=$(document).height()){
+			setTimeout(function () {
+				var html = '<li>'						
+						+'<div class="clearfix"><span class="fl">卓玛泉12L桶装水<i>+6</i></span><span class="time fr">2017-02-22 11:46</span></div>'				
+						+'<div class="clearfix"><span class="way fl">好友赠送</span><a href="javascript:;" class="fr"><em>查看详情</em></a></div>'		
+						+'</li>';				
+				$('#goodsLog').append(html);
+			},1000);
+		}
+		
+		//最后一页加上
+		//$(".nomore").addClass("acitve");
+	}, false);
+	
+});
+</script>
+</body>
+</html>

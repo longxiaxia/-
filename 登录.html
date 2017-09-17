@@ -1,0 +1,152 @@
+<!doctype html>
+<html>
+<head>
+<title>登录</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0,user-scalable=no'/>
+<meta http-equiv="X-UA-Compatible" content="edge" />
+<!--忽略将页面中的数字识别为电话号码-->
+<meta name="format-detection" content="telephone=no" />
+<!--忽略Android平台中对邮箱地址的识别-->
+<meta name="format-detection" content="email=no" />
+<link href="static/css/common_2.css" type="text/css" rel="stylesheet" />
+<link href="static/css/personal.css" type="text/css" rel="stylesheet" />
+<link href="static/css/pop.css" type="text/css" rel="stylesheet" />
+<script type="text/javascript" src="static/js/autoScreen.js"></script>
+<script type="text/javascript" src="static/js/jquery.2.1.4.min.js"></script>
+<script type="text/javascript" src="static/js/common-phper-use.js"></script>
+</head>
+<body style="background:url(static/images/loginBg.png) no-repeat;background-size:100% 100%;-webkit-background-size:100% 100%;">
+<div id="login">
+	<em></em>
+	<p>使用手机号验证身份，登录/创建卓玛泉账户</p>
+	
+	<ul>
+		<li class="mobile clearfix">
+			<input type="text" class="fl" value="" placeholder="请输入手机号码" maxlength="11"   />
+			<i></i>
+		</li>
+		<li class="img clearfix">
+			<input type="text" class="fl" placeholder="请输入图片验证码" />
+			<a href="javascript:;" class="fr"><img src="static/images/temp/codeL.png" /></a>
+		</li>
+		<li class="code clearfix">
+			<input type="text" class="fl" placeholder="请输入短信验证码" />
+			<a href="javascript:;" class="fr">获得验证码</a>
+		</li>
+	</ul>
+	
+	<div class="warn">错误警告</div>
+	
+	<a href="javascript:;" class="login">登录</a>
+	<a href="javascript:;" class="visitor">以游客身份访问</a>
+</div>
+
+<script type="text/javascript">
+$(function(){
+	//点击输入框时  提示消失
+	$("input").on("focus",function(){
+		$(".warn").text("");
+		$(".warn").removeClass("active");
+	});	
+	
+	//手机号码有值则出现X  可删除操作
+	$(".mobile input").keyup(function(){
+	   	if($(this).val().trim()){
+	   		$(this).parent().find("i").addClass("active");
+	   	}else{
+	   		$(this).parent().find("i").removeClass("active");
+	   	}	
+	});
+	$(".mobile i").on("click",function(){
+		$(this).parent().find("input").val("");
+		$(this).removeClass("active");
+	});	
+
+
+	//验证手机号码
+	function checkM(){
+		var isMobile = /^1[34578]\d{9}$/.test($(".mobile input").val().trim());
+		if(!isMobile){
+			$(".warn").text("请输入正确的手机号");
+			$(".warn").addClass("active");
+		}
+	}
+
+	//点击图片验证码   验证手机号码
+	$(".img input").on("focus",function(){
+		checkM();
+	});	
+
+	//点击更换图形验证码？？？
+	$(".img a").on("click",function(){
+		
+	});	
+
+	//点击获取短信验证码   后台判断验证码 
+	var flag =true;
+	$(".code a").on("click",function(){
+		//对图片验证码进行验证????
+		
+			
+		if(flag){
+			//验证码发送成功？？？？？？后台判断  后出现已发送提示
+			$.pop({
+				hold_time:1000,
+				tpl_msg:'<div id="box" class="radius"><p style="margin-bottom:0;">短信已发送</p></div>'
+			});
+			flag = false;
+			setTime($(this));
+		}
+	});		
+	
+	//60秒倒计时
+	var wait = 60;
+	function setTime(obj){
+		if(wait==0){
+			flag = true;
+			obj.text("重新发送");
+			wait = 60;
+		}else{
+			obj.text("等待("+wait+"秒)");
+			wait--;
+			setTimeout(function() { 
+				setTime($(obj));
+			},1000); 			
+		}
+	};	
+	
+	
+	//点击确认更改  提交
+	$(".login").on("click",function(){
+		if(!$(".mobile input").val().trim()){
+			$(".warn").text("请输入手机号码");
+			$(".warn").addClass("active");
+			return;
+		}
+		if(!$(".img input").val().trim()){
+			$(".warn").text("请输入图片验证码");
+			$(".warn").addClass("active");
+			return;
+		}
+		if(!$(".code input").val().trim()){
+			$(".warn").text("请输入短信验证码");
+			$(".warn").addClass("active");
+			return;
+		}
+		checkM();
+		//对图片验证码进行验证????
+		//对短信验证码进行验证????
+		if($(".warn").hasClass("active")){
+			return;
+		}
+		
+		//console.log("登录成功");
+		//登录
+		
+	});	
+	
+})
+</script>
+</body>
+</html>

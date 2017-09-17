@@ -1,0 +1,124 @@
+<!doctype html>
+<html>
+<head>
+<title>大转盘抽奖</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0,user-scalable=no'/>
+<meta http-equiv="X-UA-Compatible" content="edge" />
+<!--忽略将页面中的数字识别为电话号码-->
+<meta name="format-detection" content="telephone=no" />
+<!--忽略Android平台中对邮箱地址的识别-->
+<meta name="format-detection" content="email=no" />
+<link href="static/css/common_2.css" type="text/css" rel="stylesheet" />
+<link href="static/css/pop.css" type="text/css" rel="stylesheet" />
+<link href="static/css/personal.css" type="text/css" rel="stylesheet" />
+<script type="text/javascript" src="static/js/autoScreen.js"></script>
+<script type="text/javascript" src="static/js/jquery.2.1.4.min.js"></script>
+<script type="text/javascript" src="static/js/common-phper-use.js"></script>
+</head>
+<body>
+	
+<div id="turntable">
+	<div class="active">
+		<div class="control clearfix">
+			<a href="javascript:;" class="fl"><em></em>返回首页</a>
+			<a href="javascript:;" class="fr"></a>
+		</div>
+		
+		<div class="shadow"></div>
+		<div class="disk">
+			<ul class="prize">
+				<li><img src="static/images/prize01.png" /></li>
+				<li><img src="static/images/prize02.png" /></li>
+				<li><img src="static/images/prize03.png" /></li>
+				<li><img src="static/images/prize04.png" /></li>
+				<li><img src="static/images/prize05.png" /></li>
+				<li><img src="static/images/prize06.png" /></li>
+			</ul>
+			<div class="pointer"><a href="javascript:;"></a></div>
+		</div>	
+		
+		<div class="integral">现有积分<span>2300</span></div>
+	</div>
+
+	<div class="rule">
+		<div class="title"><em></em>活动规则<em></em></div>
+		<p>大转盘抽奖活动需扣除会员50积分/次，活动推广期间所有注册会员均有免费抽奖机会，每人2次/天，第三次及以上参与将需扣除50积分/次。</p>
+		<p>奖品“10元红包”仅限于卓玛泉会员中心商城和卓玛泉官网<a href="javascript:;">www.zhuomaspring.com</a>购物使用，不可兑换现金。</p>
+		<p>抽中卓玛泉桶装水和5100的会员，请仔细选择确认本人水卡账户，系统将于1个工作日内自动充值。如无水卡会员中奖，请到商城购买任意套餐水卡后并反馈客服，系统将于1个工作日内补充值奖品。</p>
+		<p>如无卡会员中奖且暂无购卡计划，系统将保留中奖纪录一年（从中奖之日起计算）会员一年内通过商城购买任意套餐水卡并反馈客服，均可补充充值奖品。</p>
+		<p>卓玛泉会员中心享有本活动的最终解释权。</p>
+	</div>
+</div>
+
+<script type="text/javascript">
+$(function(){
+
+    var prize = ["卓玛泉一桶","10元红包","10积分","30积分","20积分","5100一箱"];//顺时针转动   逆时针奖品设置
+    var weight = [1,2,3,4,5,8];//中奖比份
+	var turntable = [];
+	var lenNum = 0;//最低转圈数   避免回转
+	var flag = true;
+	for(var i=0;i<weight.length;i++){
+		for(var j=0;j<weight[i];j++){
+			turntable.push(i+1);
+		}
+	}
+
+	$(".pointer a").on("click",function(){
+		lenNum+=4;
+		var random = Math.floor(Math.random()*turntable.length); 
+		if(flag){
+			flag = false;
+			rotate(random,lenNum,3);
+		}
+	});
+	
+	//转动
+	function rotate(random,lenNum,time){
+        winIndex = turntable[random] - 1; //随机中奖的编号 
+        if(winIndex>=6){
+            winIndex = 0;
+        }	
+        //在中奖区域允许摆动范围
+        var swing =parseInt(Math.floor(Math.random()*60) - 30);
+		//抽中从数组中删掉
+        turntable.splice(random, 1);
+		//随机转动度数+区域摆动度数+最低转动度数
+		var angle = winIndex*60 + swing + lenNum*360;
+		//console.log(angle);
+
+		$('.prize').css({
+			'transform': 'rotate('+angle+'deg) translateZ(0)',
+			'-ms-transform': 'rotate('+angle+'deg) translateZ(0)',
+			'-webkit-transform': 'rotate('+angle+'deg) translateZ(0)',
+			'-moz-transform': 'rotate('+angle+'deg) translateZ(0)',
+			'-o-transform': 'rotate('+angle+'deg) translateZ(0)',
+			
+			'transform-origin': '50% 50%',
+			'-ms-transform-origin': '50% 50%',
+			'-webkit-transform-origin': '50% 50%',
+			'-moz-transform-origin': '50% 50%',
+			'-o-transform-origin': '50% 50%',
+			
+			'transition': 'transform ease-out '+time+'s',
+			'-moz-transition': '-moz-transform ease-out '+time+'s',
+			'-webkit-transition': '-webkit-transform ease-out '+time+'s',
+			'-o-transition': '-o-transform ease-out '+time+'s'
+		});
+		setTimeout(function(){ 
+			//中奖结果  弹窗  恭喜获得  再抽一次 取消
+			flag = true;
+			$.pop({
+				msg:'恭喜获得'+prize[winIndex], 
+				btn_num: 2,
+				txt_confirm: '再抽一次'
+			});
+		},time*1000+300);
+
+	}
+
+});   
+</script>
+</body>
+</html>

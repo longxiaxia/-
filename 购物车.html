@@ -1,0 +1,321 @@
+<!doctype html>
+<html>
+<head>
+<title>购物车</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0,user-scalable=no'/>
+<meta http-equiv="X-UA-Compatible" content="edge" />
+<!--忽略将页面中的数字识别为电话号码-->
+<meta name="format-detection" content="telephone=no" />
+<!--忽略Android平台中对邮箱地址的识别-->
+<meta name="format-detection" content="email=no" />
+<link href="static/css/common_2.css" type="text/css" rel="stylesheet" />
+<link href="static/css/css_2.css" type="text/css" rel="stylesheet" />
+<link href="static/css/pop.css" type="text/css" rel="stylesheet" />
+<script type="text/javascript" src="static/js/autoScreen.js"></script>
+<script type="text/javascript" src="static/js/jquery.2.1.4.min.js"></script>
+</head>
+<body>
+	
+<div id="cart">
+	<ul class="list">
+		<li>
+			<div class="title clearfix"><span class="state fr"></span></div>
+			<div class="mainCont clearfix">
+				<label class="fl">
+					<em></em>
+				</label>
+				<div class="img fl">
+					<img src="static/images/temp/list.png" />	
+				</div>
+				<div class="info fl">
+					<p>卓玛泉桶装水12L</p>
+					<p>卓玛泉桶装水12L*60桶卓玛泉桶装水12L*60桶</p>
+					<p class="clearfix">
+						<span class="newPrice fl">￥<em>4080</em></span>
+						<span class="oldPrice fl">￥<em>5080</em></span>
+					</p>
+					<!--特惠购部分数量不可编辑-->
+					<div class="sum">
+						<em>&times;</em>
+						<input type="text" readonly="true" value="1" />
+					</div>
+				</div>
+			</div>
+			<!--特惠购内容部分-->
+			<!--存个搭配购商品总数nums-->
+			<div class="saleCont clearfix" nums="0">
+				<p class="title">特惠搭配购</p>
+				<p class="clearfix" k="1">
+					<span class="name fl">饮水机/常温款</span>
+					<span class="num fl">&times;1</span>
+					<span class="price fl">￥0</span>
+					<span class="del fr">删除</span>
+				</p>
+				<p class="clearfix" k="2">
+					<span class="name fl">智能生活/小宝机器人</span>
+					<span class="num fl">&times;10</span>
+					<span class="price fl">￥108600</span>
+					<span class="del fr">删除</span>
+				</p>
+			</div>	
+		</li>
+		<li>
+			<div class="title clearfix"><span class="state fr">已失效</span></div>
+			<div class="mainCont clearfix">
+				<label class="fl">
+					<em></em>
+				</label>
+				<div class="img fl">
+					<img src="static/images/temp/list.png" />	
+				</div>
+				<div class="info fl">
+					<p>卓玛泉桶装水12L</p>
+					<p>卓玛泉桶装水12L*60桶卓玛泉桶装水12L*60桶桶装水12L*60桶桶装水12L*60桶</p>
+					<p class="clearfix">
+						<span class="newPrice fl">￥<em>4000</em></span>
+						<span class="oldPrice fl">￥<em>4500</em></span>
+					</p>
+					<!--非特惠购部分数量可编辑-->
+					<div class="sum clearfix">
+						<a href="javascript:;" class="minus">-</a>
+						<input type="text" readonly="true" value="1" />
+						<a href="javascript:;" class="add">+</a>
+					</div>
+				</div>
+			</div>
+		</li>
+	</ul>
+
+	<div class="control">
+		<label class="allCheck fl">
+			<em></em>
+			<span>全选</span>
+		</label>
+		<a href="javascript:;" class="del fl"><span>删除</span></a>
+		<div class="sum fl">
+			<p>合计<span>￥<em class="totalPrice"></em></span></p>
+			<p>已优惠<span>￥<em class="salePrice"></em></span></p>
+		</div>
+		<a href="javascript:;" class="pay fr">
+			<span>去结算</span>
+			<em class="total"></em>
+		</a>
+	</div>
+
+</div>
+
+<!--删除确认窗口-->
+<div id="mask"></div>
+<div id="box" class="radius">
+	<p></p>
+	<div class="control clearfix">
+		<a href="javascript:;" class="cancel fl radius">取消</a>
+		<a href="javascript:;" class="ok fr radius">确认</a>
+	</div>
+</div>
+
+<script type="text/javascript">	
+	//数量加减
+	$(".minus").on("click",function(){
+		var temp = Number($(this).siblings("input").val());
+		console.log(Number($(this).siblings("input").val()));
+		if(temp>1){
+			temp = temp-1;
+			$(this).siblings("input").val(temp);
+		}
+		
+		check();
+		calculate();
+	});
+	$(".add").on("click",function(){
+		var temp = Number($(this).siblings("input").val());
+		temp = temp+1;
+		$(this).siblings("input").val(temp);
+		
+		check();
+		calculate();
+	});
+
+	//数量为1  不能再减   减符号变色
+	function check(){
+	 	$(".list li").each(function(){
+			if($(this).find("input[type='text']").val()==1){
+				$(this).find("input[type='text']").siblings(".minus").addClass("disabled");
+			}else{
+				$(this).find("input[type='text']").siblings(".minus").removeClass("disabled");
+			}
+		});		
+	}
+	check();
+
+	//点击单选按钮  
+	$(".mainCont label").on("click",function(){
+		$(this).toggleClass("check");
+		
+		//控制全选
+		var len = $(".list li").length;
+		var j = 0;
+		for(var i=0;i<len;i++){
+			var check = $(".mainCont label").eq(i).hasClass("check");
+			//console.log(check);
+			if(check){
+				j = j+1;
+			}else{
+				j = j-1;
+			}
+		}
+		if(j==len){
+			$(".control .allCheck").addClass("check");
+		}else{
+			$(".control .allCheck").removeClass("check");
+		}
+		
+		calculate();
+	});		
+	
+	//点击全选按钮  
+	$(".control .allCheck").on("click",function(){	
+		$(this).toggleClass("check");
+		
+		if($(this).hasClass("check")){
+			$(".mainCont label").addClass("check");
+		}else{
+			$(".mainCont label").removeClass("check");
+		}
+		
+		calculate();
+	});	
+	
+	//删除搭配商品
+	var delId;
+	$(".saleCont .del").on("click",function(){	
+		$("#box p").text("确定删除搭配购商品？");
+		$("#box").addClass("active");
+		$("#mask").addClass("active");
+		
+		delId = $(this).parent().attr("k");
+	});	
+	//搭配商品删除取消
+	$("#box .cancel").on("click",function(){
+		$("#mask").removeClass("active");
+		$("#box").removeClass("active");
+		delId = "";
+	});			
+	//搭配商品删除确认
+	$("#box .ok").on("click",function(){
+		$("#mask").removeClass("active");
+		$("#box").removeClass("active");
+
+		if(delId){
+			//如果只有一项 删除整个特惠搭配购
+			if($(".saleCont").find(".clearfix").length==1){
+				$(".saleCont").remove();
+			}else{
+				$(".saleCont").find(".clearfix[k='"+ delId +"']").remove();
+			}			
+		}
+		delId = "";
+		nums();
+		calculate();
+	});		
+	
+	//删除商品
+	$(".control .del").on("click",function(){	
+		del();
+	});	
+	
+	function del(){
+		var len = $(".list li").length;
+		if(len){
+			for(var i=0;i<len;i++){
+				var check = $(".mainCont label").eq(i).hasClass("check");
+				//console.log($(".mainCont label").eq(i).get(0));
+				if(check){
+					$(".mainCont label").eq(i).parents("li").remove();
+					del();
+				}
+			}	
+		}else{
+			$(".control .allCheck").removeClass("check");
+			$(".list").append("<li style='background:transparent;text-align:center;padding-top:2rem;'>购物车还是空的，去<a href='javascript:;' style='color:#cc4032;text-decoration:underline;margin:0 0.05rem;'>逛逛</a>吧！</li>");
+		}
+		
+		calculate();
+	}
+	
+		
+	//计算存个搭配购商品总数extraNum
+	function nums(){	
+		$(".list li").each(function(){
+			var extraNums = 0;
+			var extraLen = $(this).find(".saleCont .clearfix").length;
+			for(var i=0;i<extraLen;i++){
+				var extraNum = Number($(this).find(".saleCont .clearfix").eq(i).find(".num").text().substring(1));
+				console.log(extraNum);
+				//console.log(typeof extraNum);
+				extraNums = extraNums + extraNum;
+			}			
+			$(this).find(".saleCont").attr("nums",extraNums);
+		})
+	}
+	nums();
+	
+	//总价的计算     总商品数量的计算
+	function calculate(){
+		var aValues = 0;
+		var aSales = 0;
+		var aNums = 0;
+		var extras = 0;
+		//var extra = 0;
+		var len = $(".list li").length;
+		for(var i=0;i<len;i++){
+			var check = $(".mainCont label").eq(i).hasClass("check");
+			if(check){
+				//console.log($(".mainCont label").eq(i).get(0));
+				var newPrice = Number($(".mainCont label").eq(i).parent().find(".newPrice em").text());
+				var oldPrice = Number($(".mainCont label").eq(i).parent().find(".oldPrice em").text());						
+				var num = Number($(".mainCont label").eq(i).parent().find("input[type='text']").val());
+				aValues = aValues + newPrice*num;
+				aSales = aSales + (oldPrice-newPrice)*num;
+				
+				if($(".mainCont label").eq(i).parents("li").find(".saleCont").attr("nums")){
+					extras = extras + Number($(".mainCont label").eq(i).parents("li").find(".saleCont").attr("nums"));
+				}else{
+					extras = extras + 0;
+				}
+				console.log(extras);
+
+				aNums = aNums + num;
+				
+			}
+		}
+		aNums = aNums + extras;
+		
+		//总价格
+		$(".control .sum .totalPrice").text(aValues);
+		//总优惠
+		$(".control .sum .salePrice").text(aSales);
+		//总数量
+		$(".control .pay em").text(aNums);
+	};	
+	calculate();
+	
+	//去结算有失效商品 提示
+	$(".control .pay").on("click",function(){	
+		var len = $(".list li").length;
+		for(var i=0;i<len;i++){
+			var check = $(".mainCont label").eq(i).hasClass("check");
+			if(check){
+				//console.log($(".mainCont label").eq(i).parents("li").find(".state").text());
+				if($(".mainCont label").eq(i).parents("li").find(".state").text()=="已失效"){
+					$("#box p").text("您选择的商品中有已失效的商品，确认移除并提交订单？");
+					$("#box").addClass("active");
+					$("#mask").addClass("active");					
+				}
+			}
+		}		
+	});	
+</script>
+</body>
+</html>

@@ -1,0 +1,178 @@
+<!doctype html>
+<html>
+<head>
+<title>更换手机号码</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0,user-scalable=no'/>
+<meta http-equiv="X-UA-Compatible" content="edge" />
+<!--忽略将页面中的数字识别为电话号码-->
+<meta name="format-detection" content="telephone=no" />
+<!--忽略Android平台中对邮箱地址的识别-->
+<meta name="format-detection" content="email=no" />
+<link href="static/css/common_2.css" type="text/css" rel="stylesheet" />
+<link href="static/css/personal.css" type="text/css" rel="stylesheet" />
+<link href="static/css/pop.css" type="text/css" rel="stylesheet" />
+<script type="text/javascript" src="static/js/autoScreen.js"></script>
+<script type="text/javascript" src="static/js/jquery.2.1.4.min.js"></script>
+<script type="text/javascript" src="static/js/personal.js"></script>
+<script type="text/javascript" src="static/js/common-phper-use.js"></script>
+</head>
+<body>
+<div id="edit">
+	<div class="warn">错误警告</div>
+	
+	<p>当前绑定手机号为：136****3030</p>
+	
+	<ul>
+		<li class="number clearfix">
+			<input type="text" class="fl" value="1678889" readonly="true" />
+		</li>
+		<li class="oldMobile clearfix">
+			<input type="text" class="fl" value="" placeholder="请输入绑定手机号" maxlength="11"  />
+			<i></i>
+		</li>
+		<li class="newMobile clearfix">
+			<input type="text" class="fl" value="" placeholder="请输入新手机号" maxlength="11"  />
+			<i></i>
+		</li>
+		<li class="img clearfix">
+			<input type="text" class="fl" placeholder="请输入图片验证码" />
+			<a href="javascript:;" class="fr"><img src="static/images/temp/codeY.png" /></a>
+		</li>
+		<li class="code clearfix">
+			<input type="text" class="fl" placeholder="请输入短信验证码" />
+			<a href="javascript:;" class="fr">获得验证码</a>
+		</li>
+	</ul>
+	
+	<a href="javascript:;" class="edit">确认更改</a>
+</div>
+
+<!--提示窗口-->
+<div id="mask"></div>
+<div id="box" class="radius">
+	<p style="margin-bottom:0;"></p>
+</div>
+
+<script type="text/javascript">
+$(document).ready(function () {	
+	//手机号码只能输入数字
+	$(".oldMobile input,.newMobile input").keyup(function(){
+//	    if(!(event.keyCode==46)&&!(event.keyCode==8)&&!(event.keyCode==37)&&!(event.keyCode==39)){
+//		    if(!((event.keyCode>=48&&event.keyCode<=57)||(event.keyCode>=96&&event.keyCode<=105))){
+//		    	event.returnValue=false;  //执行至该语句时，阻止输入；可类比阻止冒泡原理或者禁止右键功能；	   
+//		    }
+//	    }
+	    var v=$(this).val();
+	    v=v.replace(/[^\d]/g,'');
+	    $(this).val(v);
+	    
+	});
+	//手机号码有值则出现X  可删除操作
+	$(".oldMobile input,.newMobile input").keyup(function(){
+	   	if($(this).val().trim()){
+	   		$(this).parent().find("i").addClass("active");
+	   	}else{
+	   		$(this).parent().find("i").removeClass("active");
+	   	}	
+	});
+	$(".oldMobile i,.newMobile i").on("click",function(){
+		$(this).parent().find("input").val("");
+		$(this).removeClass("active");
+	});	
+
+
+	//点击输入新手机号 验证老手机号
+	$(".newMobile input").on("focus",function(){
+		//验证手机号
+		var isMobile = /^1[34578]\d{9}$/.test($(".oldMobile input").val().trim());
+		if(!isMobile){
+			$(".warn").text("请输入正确绑定的手机号");
+			$(".warn").addClass("active");
+		}
+	});	
+	//点击输入新手机号 验证新手机号
+	$(".img input").on("focus",function(){
+		//验证手机号?????  提示UI还没有
+		var isMobile = /^1[34578]\d{9}$/.test($(".newMobile input").val().trim());
+		if(!isMobile){
+			$(".warn").text("请输入正确新手机号");
+			$(".warn").addClass("active");
+		}
+	});		
+	
+	//点击更换图形验证码
+	$(".img a").on("click",function(){
+		//后台更换
+	});	
+
+
+	//点击获取短信验证码   后台判断验证码 
+	var flag =true;
+	$(".code a").on("click",function(){
+		//对图片验证码进行验证????
+		
+		
+		
+			
+		if(flag){
+			//验证码发送成功？？？？？？后台判断  后出现已发送提示
+			$("#box p").text("短信已发送");
+			$("#mask").addClass("active");
+			$("#box").addClass("active");
+			setTimeout(function() { 
+				$("#mask").removeClass("active");
+				$("#box").removeClass("active");
+			},500);		
+			
+			flag = false;
+			setTime($(this));
+		}
+	});		
+	
+	var wait = 60;
+	function setTime(obj){
+		if(wait==0){
+			flag = true;
+			obj.text("重新发送");
+			wait = 60;
+		}else{
+			obj.text("等待("+wait+"秒)");
+			wait--;
+			setTimeout(function() { 
+				setTime($(obj));
+			},1000); 			
+		}
+	};	
+	
+	
+	//点击确认更改  提交
+	$(".edit").on("click",function(){
+		if(!$(".oldMobile input").val().trim()){
+			$(".warn").text("请输入绑定的手机号");
+			$(".warn").addClass("active");
+			return;
+		}
+		if(!$(".newMobile input").val().trim()){
+			$(".warn").text("请输入新手机号");
+			$(".warn").addClass("active");
+			return;
+		}
+		if(!$(".img input").val().trim()){
+			$(".warn").text("请输入图片验证码");
+			$(".warn").addClass("active");
+			return;
+		}
+		if(!$(".code input").val().trim()){
+			$(".warn").text("请输入短信验证码");
+			$(".warn").addClass("active");
+			return;
+		}
+		
+		//提交
+		
+	});		
+})	
+</script>
+</body>
+</html>

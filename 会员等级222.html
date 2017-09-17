@@ -1,0 +1,181 @@
+<!doctype html>
+<html>
+<head>
+<title>会员等级</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0,user-scalable=no'/>
+<meta http-equiv="X-UA-Compatible" content="edge" />
+<!--忽略将页面中的数字识别为电话号码-->
+<meta name="format-detection" content="telephone=no" />
+<!--忽略Android平台中对邮箱地址的识别-->
+<meta name="format-detection" content="email=no" />
+<link href="static/css/common_2.css" type="text/css" rel="stylesheet" />
+<link href="static/css/personal.css" type="text/css" rel="stylesheet" />
+<script type="text/javascript" src="static/js/autoScreen.js"></script>
+<script type="text/javascript" src="static/js/jquery.2.1.4.min.js"></script>
+<script type="text/javascript" src="static/js/personal.js"></script>
+</head>
+<style type="text/css">
+	/*width:1.16rem;*/
+	/*border-bottom:0.04rem solid #fff;*/
+#grade .header ul li{
+	position:relative;
+}
+#grade .header ul li em{
+	height:0.04rem;
+	background:#fff;
+	position:absolute;
+	left:0;
+	bottom:-0.04rem;
+}	
+	
+</style>
+<body>
+	
+<div id="grade">
+	<div class="header">
+		<img src="static/images/temp/head.png" />
+		<p>铂金会员</p>
+		<ul class="clearfix">
+			<li class="fl">普通<em></em></li>
+			<li class="fl">VIP<em></em></li>
+			<li class="fl">白银<em></em></li>
+			<li class="fl">铂金<em></em></li>
+			<li class="fl">钻石<em></em></li>
+		</ul>
+	</div>
+	
+	<div class="value clearfix">
+		<a href="javascript:;" class="fl">当前成长值<br /><span>2965</span></a>
+		<a href="javascript:;" class="fr">本月要过期成长值<br /><span>965</span></a>
+	</div>
+	
+	<div class="getValue">
+		<div class="title">
+			<p>当前成长值获取方式</p>
+		</div>
+		<ul>
+			<li>1.购买卓玛泉套且已完成配送<a href="javascript:;"><em>去购买</em></a></li>
+			<li>2.邀请好友<a href="javascript:;"><em>邀请好友</em></a></li>
+			<li>3.参与每日有奖签到活动<a href="javascript:;"><em>去签到</em></a></li>
+			<li>4.完善个人资料<a href="javascript:;"><em>完善资料</em></a></li>
+			<li>5.分享卓玛泉图文资料<a href="javascript:;"><em>去分享</em></a></li>
+		</ul>
+	</div>
+
+	<div class="grade">
+		<div class="title">
+			<p>等级说明</p>
+		</div>
+		<ul>
+			<li class="clearfix caption">
+				<div class="fl">等级</div>
+				<div class="fl score">所需积分</div>
+				<div class="fr">特权</div>
+			</li>
+			<li class="clearfix">
+				<div class="fl">普通会员</div>
+				<div class="fl score">0-99</div>
+				<div class="fr">
+					<p>会员日</p>
+					<p>享受积分累计</p>
+				</div>
+			</li>
+			<li class="clearfix">
+				<div class="fl">VIP会员</div>
+				<div class="fl score">100-1999</div>
+				<div class="fr">
+					<p>会员日</p>
+					<p>售后增值服务</p>
+					<p>实时获取奖励</p>
+				</div>
+			</li>
+			<li class="clearfix">
+				<div class="fl">白银会员</div>
+				<div class="fl score">2000-4999</div>
+				<div class="fr">
+					<p>会员日</p>
+					<p>会员日亲子日</p>
+					<p>售后增值服务</p>
+					<p>实时获取奖励</p>
+				</div>
+			</li>
+			<li class="clearfix">
+				<div class="fl">铂金会员</div>
+				<div class="fl score">5000-9999</div>
+				<div class="fr">
+					<p>会员日</p>
+					<p>会员商品</p>
+					<p>积分加速1.2</p>
+					<p>俱乐部增值</p>
+					<p>会员亲子日</p>
+					<p>会售后增值服务</p>
+					<p>实时获取奖励</p>
+				</div>
+			</li>
+			<li class="clearfix">
+				<div class="fl">钻石会员</div>
+				<div class="fl score">10000以上</div>
+				<div class="fr">
+					<p>会员日</p>
+					<p>积分联盟</p>
+					<p>会员商品</p>
+					<p>俱乐部增值</p>
+					<p>积分加速1.5</p>
+					<p>售后增值服务</p>
+					<p>实时获取奖励</p>
+				</div>
+			</li>
+		</ul>
+	</div>
+	
+</div>
+
+
+<script type="text/javascript">
+	$(function(){
+//		0-99          99
+//		100-1999      1899
+//		2000-4999     2999
+//		5000-9999     4999
+//		10000-49999   39999
+
+		var level = 2999;
+		//等级的初始分值
+		var startArray = [0,100,2000,5000,10000,50000];
+		//等级的差额
+		var differArray = [];
+		//等级位置
+		var index;
+		//差额的百分比
+		var differLevel;
+		
+		for(var i=0;i<startArray.length;i++){
+			if(i<=4){
+				differArray[i] = startArray[i+1] - 1 - startArray[i];
+			}
+			if(level>=startArray[i]){
+				index = i;
+				differLevel = level - startArray[index];
+			}
+		}
+			
+		var percent = (differLevel/differArray[index]).toFixed(2);		
+		//console.log(index);//1
+		//console.log(differLevel);//1655
+		//console.log(differArray);//[99,1899,2999,4999,39999];
+		console.log(percent);
+		
+		var htmlFont = parseFloat(document.getElementsByTagName('html')[0].style.fontSize);						
+		$("#grade .header ul li").each(function(i){
+			if(i<index){
+				$("#grade .header ul li").eq(i).find("em").width(1.16*htmlFont);
+			}else if(i=index){
+				$("#grade .header ul li").eq(i).find("em").width(1.16*htmlFont*percent);
+			}
+		})
+		
+	});
+</script>
+</body>
+</html>

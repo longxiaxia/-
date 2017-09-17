@@ -1,0 +1,94 @@
+<!doctype html>
+<html>
+<head>
+<title>水卡兑换</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0,user-scalable=no'/>
+<meta http-equiv="X-UA-Compatible" content="edge" />
+<!--忽略将页面中的数字识别为电话号码-->
+<meta name="format-detection" content="telephone=no" />
+<!--忽略Android平台中对邮箱地址的识别-->
+<meta name="format-detection" content="email=no" />
+<link href="static/css/common_2.css" type="text/css" rel="stylesheet" />
+<link href="static/css/personal.css" type="text/css" rel="stylesheet" />
+<script type="text/javascript" src="static/js/autoScreen.js"></script>
+<script type="text/javascript" src="static/js/jquery.2.1.4.min.js"></script>
+</head>
+<body>
+	
+<div id="card">
+	<ul class="info">
+		<li class="clearfix">
+			<span class="fl">卡号：</span>
+			<input type="text" readonly="true" class="fr" value="342692462964462992" />
+		</li>
+		<li class="clearfix">
+			<span class="fl">密码：</span>
+			<input type="text" class="fr" />
+		</li>
+	</ul>
+	
+	<div class="result">
+		<ul class="content">
+			<li class="clearfix">
+				<span class="fl">卡号：</span>
+				<div class="fr">479294204702040201221</div>
+			</li>
+			<li class="clearfix">
+				<span class="fl">包含：</span>
+				<div class="fr">
+					<p>卓玛泉桶装水*60桶</p>
+					<p>5100瓶装水*5箱</p>
+				</div>
+			</li>
+		</ul>
+		
+		<div class="account clearfix">
+			<span class="fl">充值到账户：</span>
+			<span class="fl num">23778899877</span>
+			<a href="javascript:;" class="fl">更换</a>
+		</div>
+		<div class="notice">*您是卓玛泉新用户，确认充值后将给您账户自动充值一台常温饮水机。</div>
+		
+		<!--更换账户出现的信息-->
+		<div class="change">
+			<div class="clearfix">
+				<input type="text" class="fl" />
+				<a href="javascript:;" class="fr">检测账户</a>
+			</div>
+			<div class="tip">
+				<p>*该手机号未注册，确认充值后将自动用该手机注册账户，且给该账户自动充值一台常温饮水机。</p>
+				<p>*该账户为卓玛泉新用户，确认充值后将给账户自动充值一台常温饮水机。</p>
+			</div>
+		</div>
+		
+	</div>
+
+	<a href="javascript:;" class="recharge">验证</a>
+</div>
+
+
+<script type="text/javascript">
+$(document).ready(function () {	
+	//点击  验证卡号
+	$(".recharge").on("click",function(){
+		$(".result").addClass("active");
+		$(this).text("充值");
+		//$(".result").slideToggle(300);
+	});		
+
+	//点击更换充值账户
+	$(".account a").on("click",function(){
+		$(".change").addClass("active");
+	});		
+	
+	//点击检测账户
+	$(".change a").on("click",function(){
+		if($(this).siblings().val().trim()){
+			$(".tip").addClass("active");
+		}
+	});		
+})	
+</script>
+</body>
+</html>

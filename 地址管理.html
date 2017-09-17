@@ -1,0 +1,110 @@
+<!doctype html>
+<html>
+<head>
+<title>地址管理</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0,user-scalable=no'/>
+<meta http-equiv="X-UA-Compatible" content="edge" />
+<!--忽略将页面中的数字识别为电话号码-->
+<meta name="format-detection" content="telephone=no" />
+<!--忽略Android平台中对邮箱地址的识别-->
+<meta name="format-detection" content="email=no" />
+<link href="static/css/common_2.css" type="text/css" rel="stylesheet" />
+<link href="static/css/css_2.css" type="text/css" rel="stylesheet" />
+<link href="static/css/pop.css" type="text/css" rel="stylesheet" />
+<script type="text/javascript" src="static/js/autoScreen.js"></script>
+<script type="text/javascript" src="static/js/jquery.2.1.4.min.js"></script>
+<script type="text/javascript" src="static/js/swiper.min.js"></script>
+<script type="text/javascript" src="static/js/intergral.js"></script>
+<script type="text/javascript" src="static/js/common-phper-use.js"></script>
+</head>
+<body>
+	
+<div id="address">
+	<ul>
+		<li data="">
+			<p>
+				<span>美国队长0</span>
+				<span>13623234545</span>
+			</p>
+			<p>广州省深圳市南山区大冲商务楼C座</p>
+			<p class="clearfix">
+				<a href="javascript:;" class="fl check on"><em></em>默认地址</a>
+				<a href="javascript:;" class="fr del"><em></em><i>删除</i></a>
+				<a href="javascript:;" class="fr edit"><em></em><i>编辑</i></a>
+			</p>
+		</li>
+		<li data="">
+			<p>
+				<span>美国队长1</span>
+				<span>13623234545</span>
+			</p>
+			<p>广州省深圳市南山区大冲商务楼C座广州省深圳市南山区大冲商务楼C座</p>
+			<p class="clearfix">
+				<a href="javascript:;" class="fl check"><em></em>默认地址</a>
+				<a href="javascript:;" class="fr del"><em></em><i>删除</i></a>
+				<a href="javascript:;" class="fr edit"><em></em><i>编辑</i></a>
+			</p>
+		</li>
+		<li data="">
+			<p>
+				<span>美国队长2</span>
+				<span>13623234545</span>
+			</p>
+			<p>广州省深圳市南山区大冲商务楼C座</p>
+			<p class="clearfix">
+				<a href="javascript:;" class="fl check"><em></em>默认地址</a>
+				<a href="javascript:;" class="fr del"><em></em><i>删除</i></a>
+				<a href="javascript:;" class="fr edit"><em></em><i>编辑</i></a>
+			</p>
+		</li>
+		<li>
+			<p>最多添加十个地址</p>
+		</li>
+	</ul>
+</div>
+
+<div id="addressAdd">
+	<a href="javascript:;">新增配送地址</a>	
+</div>
+
+<script type="text/javascript">
+$(document).ready(function () {
+	//设置每个地址data属性  
+	function setLi(){
+		$("#address li").each(function(){
+			$(this).attr("data",$(this).index());
+		});			
+	}
+	setLi();
+	
+	//默认地址选择
+	$("#address li p a.check").on("click",function(){
+		$("#address li p a.check").removeClass("on");
+		$(this).addClass("on");
+		 
+		return false;
+	});
+	
+	//地址删除操作
+	$("#address li p a.del").on("click",function(){
+		//记录删除是啥
+		var index = $(this).parents("li").attr("data");
+		$.pop({
+			msg:'确认删除该地址？', 
+			btn_num: 2,
+			callback_confirm:function(){
+				//删除
+				$("#address ul li").eq(index).remove();
+				setLi();
+			},
+			callback_cancel:null
+		});
+		
+		return false;
+	});	
+
+});
+</script>
+</body>
+</html>

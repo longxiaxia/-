@@ -1,0 +1,383 @@
+<!doctype html>
+<html>
+<head>
+<title>订单确认</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0,user-scalable=no'/>
+<meta http-equiv="X-UA-Compatible" content="edge" />
+<!--忽略将页面中的数字识别为电话号码-->
+<meta name="format-detection" content="telephone=no" />
+<!--忽略Android平台中对邮箱地址的识别-->
+<meta name="format-detection" content="email=no" />
+<link href="static/css/common_2.css" type="text/css" rel="stylesheet" />
+<link href="static/css/css_2.css" type="text/css" rel="stylesheet" />
+<link href="static/css/pop.css" type="text/css" rel="stylesheet" />
+<script type="text/javascript" src="static/js/autoScreen.js"></script>
+<script type="text/javascript" src="static/js/jquery.2.1.4.min.js"></script>
+</head>
+<body>
+	
+<div id="orderOk">
+	<div class="address">
+		<p>
+			<span>美国队长</span>
+			<span>13623234545</span>
+		</p>	
+		<p class="set">广州省深圳市南山区大冲商务楼C座<em>更换</em></p>
+		<a href="javascript:;" class="check"><em></em>默认收货地址</a>
+	</div>
+	<!--没有地址的时候-->
+	<!--<div class="address no">
+		<em></em>
+		<i></i>
+		<p>请添加你的收货地址</p>
+	</div>-->
+	
+	<ul class="account">
+		<li>
+			<label class="check">
+				<em></em>
+				本账户充值（13823234545）
+			</label>
+		</li>	
+		<li class="clearfix">
+			<label class="fl">
+				<em></em>
+				帮其他账户充值
+			</label>
+			<input type="text" class="radius fl" />
+			<a href="javascript:;" class="test radius fl">检测账户</a>				
+		</li>	
+	</ul>	
+	
+	<ul class="list">
+		<li>
+			<div class="mainCont clearfix">
+				<div class="img fl">
+					<img src="static/images/temp/list.png" />	
+				</div>
+				<div class="info fl">
+					<p>卓玛泉桶装水12L</p>
+					<p>卓玛泉桶装水12L*60桶卓玛泉桶装水12L*60桶</p>
+					<p class="clearfix">
+						<span class="newPrice fl">￥4080</span>
+						<span class="oldPrice fl">￥5080</span>
+					</p>
+					<!--特惠购部分数量不可编辑-->
+					<div class="sum sale">&times;1</div>
+				</div>
+			</div>
+			<div class="tip">*所充值账户不可享受之前所显示价格，现已自动为您更新为可享价格</div>
+			<!--特惠购内容部分-->
+			<div class="saleCont clearfix">
+				<p class="title">特惠搭配购</p>
+				<p class="clearfix" k="1">
+					<span class="name fl">饮水机/常温款</span>
+					<span class="num fl">&times;1</span>
+					<span class="price fl">￥0</span>
+					<span class="del fr">删除</span>
+				</p>
+				<div class="tip">*所充值账户不可享受之前所显示价格，现已自动为您更新为可享价格</div>
+				<p class="clearfix" k="2">
+					<span class="name fl">智能生活/小宝机器人</span>
+					<span class="num fl">&times;10</span>
+					<span class="price fl">￥108600</span>
+					<span class="del fr">删除</span>
+				</p>
+				<div class="tip">*所充值账户当前不可搭配此商品，请删除</div>
+			</div>	
+		</li>
+		<li>
+			<div class="mainCont clearfix">
+				<div class="img fl">
+					<img src="static/images/temp/list.png" />	
+				</div>
+				<div class="info fl">
+					<p>卓玛泉桶装水12L</p>
+					<p>卓玛泉桶装水12L*60桶卓玛泉桶装水12L*60桶</p>
+					<p class="clearfix">
+						<span class="newPrice fl">￥4080</span>
+						<span class="oldPrice fl">￥5080</span>
+					</p>
+					<!--非特惠购部分数量可编辑-->
+					<div class="sum clearfix">
+						<a href="javascript:;" class="minus">-</a>
+						<input type="text" readonly="true" value="1" />
+						<a href="javascript:;" class="add">+</a>
+					</div>
+				</div>
+			</div>
+		</li>		
+	</ul>
+	
+	<div class="bill">
+		<p>
+			发票信息
+			<span class="fr">
+				开具发票
+				<a href="javascript:;"><em></em></a>
+			</span>
+		</p>
+		<ul class="content">
+			<li class="clearfix">
+				<!--<span class="fl">发票抬头</span>-->
+				<input type="text" class="billTit"  disabled="disabled" placeholder="请输入发票抬头" />
+			</li>
+			<li class="clearfix">
+				<input type="text" class="billTit"  disabled="disabled" placeholder="请输入纳税人识别号" />
+			</li>
+			<li class="clearfix">
+				<span class="fl">发票类型</span>
+				<input type="text" readonly="true" value="增值税普通发票" />
+			</li>
+			<li class="clearfix">
+				<span class="fl">发票内容</span>
+				<input type="text" readonly="true" value="天然水套餐" />
+			</li>
+		</ul>
+	</div>
+	
+	<div class="coupon">
+		<p class="couponPlat">平台优惠<span class="fr">满500减100<em class="ar" style="visibility:hidden;"></em></span></p>
+		<p class="couponTicket">使用优惠券<span class="fr">无可使用优惠券<em class="ar"></em></span></p>
+		<div class="packet">
+			<div class="clearfix">
+				<label for="check" class="fl">
+					<em></em>
+					使用红包码
+				</label>
+				<input type="text" class="radius fl" disabled="disabled" />
+				<a href="javascript:;" class="radius fl">验证红包码</a>				
+			</div>			
+			<div class="result">*该红包金额为10元</div>
+		</div>
+	</div>
+	
+	<div class="count">
+		<p>订单金额<span class="fr">￥10400</span></p>
+		<ul>
+			<li>平台优惠<span class="fr">-￥100</span></li>
+			<li>优惠券<span class="fr">-￥100</span></li>
+			<li>红包码<span class="fr">-￥50</span></li>
+		</ul>
+		<p>实际支付<span class="fr">￥10150</span></p>
+	</div>
+	
+	<div class="pay">
+		<a href="javascript:;" class="radius weiPay">微信支付</a>
+		<a href="javascript:;" class="radius otherPay">其他支付方式</a>
+	</div>
+</div>
+
+<div id="mask"></div>
+<div id="box" class="radius">
+	<p></p>
+	<div class="control clearfix">
+		<a href="javascript:;" class="cancel fl radius">取消</a>
+		<a href="javascript:;" class="ok fr radius">确认</a>
+	</div>
+</div>
+
+<!--优惠券的下拉弹出-->
+<div id="ticketPop">
+	<p>使用优惠券<em class="close"></em></p>
+	<ul>
+		<li>
+			<p>不使用优惠券</p>
+			<em class="check"></em>
+		</li>
+		<li>
+			<p class="money"><span>50</span>元</p>
+			<p class="condition">订单满500可用</p>
+			<p class="time">2018-01-03到期</p>
+			<em></em>
+		</li>
+		<li>
+			<p class="money"><span>50</span>元</p>
+			<p class="condition">订单满500可用</p>
+			<p class="time">2018-01-03到期</p>
+			<em></em>
+		</li>
+	</ul>
+</div>
+
+<div id="payPop">
+	<p>更多支付方式<em class="close"></em></p>
+	<a href="javascript:;" class="radius cashPay">货到付款</a>
+</div>
+
+<script type="text/javascript">
+	//数量加减
+	$(".minus").on("click",function(){
+		var temp = Number($(this).siblings("input").val());
+		console.log(Number($(this).siblings("input").val()));
+		if(temp>1){
+			temp = temp-1;
+			$(this).siblings("input").val(temp);
+		}
+		
+		check();
+		//calculate();
+	});
+	$(".add").on("click",function(){
+		var temp = Number($(this).siblings("input").val());
+		temp = temp+1;
+		$(this).siblings("input").val(temp);
+		
+		check();
+		//calculate();
+	});
+
+	//数量为1  不能再减   减符号变色
+	function check(){
+	 	$(".list li").each(function(){
+			if($(this).find("input[type='text']").val()==1){
+				$(this).find("input[type='text']").siblings(".minus").addClass("disabled");
+			}else{
+				$(this).find("input[type='text']").siblings(".minus").removeClass("disabled");
+			}
+		});		
+	}
+	check();
+
+	//删除搭配商品
+	var delId;
+	$(".saleCont .del").on("click",function(){	
+		$("#box p").text("确定删除搭配购商品？");
+		$("#box").addClass("active");
+		$("#mask").addClass("active");
+		
+		delId = $(this).parent().attr("k");
+	});	
+	//搭配商品删除取消
+	$("#box .cancel").on("click",function(){
+		$("#mask").removeClass("active");
+		$("#box").removeClass("active");
+		delId = "";
+	});			
+	//搭配商品删除确认
+	$("#box .ok").on("click",function(){
+		$("#mask").removeClass("active");
+		$("#box").removeClass("active");
+
+		if(delId){
+			//如果只有一项 删除整个特惠搭配购
+			if($(".saleCont").find(".clearfix").length==1){
+				$(".saleCont").remove();
+			}else{
+				$(".saleCont").find(".clearfix[k='"+ delId +"']").next().removeClass("active");
+				
+				$(".saleCont").find(".clearfix[k='"+ delId +"']").remove();
+			}			
+		}
+		delId = "";
+	});		
+
+
+
+	//点击账户充值
+	$(".account label").on("click",function(){
+		$(".account label").removeClass("check");
+		$(this).addClass("check");
+		
+		if($(".account .clearfix label").hasClass("check")){
+			//$(".account .clearfix input").removeAttr("disabled");
+			$(".account .clearfix input,.account .clearfix a").addClass("active");
+		}else{
+			location.reload();
+            return;
+			//$(".account .clearfix input").attr("disabled","disabled");
+			$(".account .clearfix input,.account .clearfix a").removeClass("active");
+		}
+	});
+	//账户充值   检测账户
+	$(".account a.test").on("click",function(){
+		//不满足出现提示    账户不满足判断？？？？？
+		if($(this).parent().find("input[type='text']").val()){
+			$(".saleCont .tip").addClass("active");
+		}else{
+			$(".saleCont .tip").removeClass("active");
+		}
+	});	
+
+	//点击开具发票
+	$(".bill a").on("click",function(){
+		$(this).toggleClass("active");
+		
+		if($(".bill a").hasClass("active")){
+			$(".billTit").removeAttr("disabled");
+		}else{
+			$(".billTit").attr("disabled","disabled");
+		}
+		
+		$(".bill .content").slideToggle(200);
+	});	
+	
+
+	//点击平台优惠        还没有做完 弹出样式还没有给到？？？？？？？？？
+	$(".coupon .couponPlat").on("click",function(){
+		//$(this).find("span em").toggleClass("active");
+	});
+	
+	//点击使用优惠券
+	$(".coupon .couponTicket").on("click",function(){
+		$(this).find("span em").addClass("active");
+		$("#mask").addClass("active");
+		$("#ticketPop").slideToggle(200);
+		$('body,html').css({'overflow':'hidden'});		
+	});	
+	//选择使用优惠券
+	$("#ticketPop li").on("click",function(){
+		$("#ticketPop li em").removeClass("check");
+		$(this).find("em").addClass("check");
+		
+		//$(".couponTicket span em").removeClass("active");
+		//$("#mask").removeClass("active");
+		//$("#ticketPop").slideToggle(200);		
+		//$('body,html').css({'overflow':''});	
+	});		
+	//使用优惠券  窗口关闭
+	$("#ticketPop .close").on("click",function(){
+		$(".couponTicket span em").removeClass("active");
+		$("#mask").removeClass("active");
+		$("#ticketPop").slideToggle(200);
+		$('body,html').css({'overflow':''});		
+	});		
+	
+	//点击使用红包码
+	$(".packet label").on("click",function(){
+		$(this).toggleClass("check");
+		
+		if($(".packet label").hasClass("check")){
+			$(this).parent().find("input").removeAttr("disabled");
+			$(this).parent().find("a").addClass("active");
+		}else{
+			$(this).parent().find("input").attr("disabled","disabled");
+			$(this).parent().find("a").removeClass("active");
+		}
+	});
+	//使用优惠券    验证红包码
+	$(".packet a").on("click",function(){
+		//红包码不对出现提示    红包码不对判断？？？？？
+		if($(".packet input[type='text']").val().trim()){
+			$(".packet .result").addClass("active");
+		}else{
+			$(".packet .result").removeClass("active");
+		}
+	});
+	
+	//点击其他支付方式
+	$(".pay .otherPay").on("click",function(){
+		$("#mask").addClass("active");
+		$("#payPop").slideToggle(200);
+	});	
+	//其他支付方式   窗口关闭
+	$("#payPop .close").on("click",function(){
+		$("#mask").removeClass("active");
+		$("#payPop").slideToggle(200);
+	});		
+	
+
+</script>
+</body>
+</html>

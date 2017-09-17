@@ -1,0 +1,154 @@
+<!doctype html>
+<html>
+<head>
+<title>个人资料</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0,user-scalable=no'/>
+<meta http-equiv="X-UA-Compatible" content="edge" />
+<!--忽略将页面中的数字识别为电话号码-->
+<meta name="format-detection" content="telephone=no" />
+<!--忽略Android平台中对邮箱地址的识别-->
+<meta name="format-detection" content="email=no" />
+<link href="static/css/common_2.css" type="text/css" rel="stylesheet" />
+<link rel="stylesheet" href="static/css/FJL.min.css">
+<link rel="stylesheet" type="text/css" href="static/css/FJL.picker.min.css" />
+<link href="static/css/pop.css" type="text/css" rel="stylesheet" />
+<link href="static/css/personal.css" type="text/css" rel="stylesheet" />
+<script type="text/javascript" src="static/js/autoScreen.js"></script>
+<script type="text/javascript" src="static/js/jquery.2.1.4.min.js"></script>
+<script type="text/javascript" src="static/js/personal.js"></script>
+</head>
+<body>
+	
+<div id="info">
+	<ul>
+		<li class="clearfix">
+			<span class="fl">头像</span>
+			<a href="javascript:;" class="fr"><img src="static/images/temp/head.png" class="fr" /></a>
+		</li>
+		<li class="clearfix">
+			<span class="fl">用户昵称</span>
+			<a href="javascript:;" class="fr">美国队长</a>
+		</li>
+		<li class="clearfix">
+			<span class="fl">会员等级</span>
+			<a href="javascript:;" class="grade fr">铂金会员</a>
+		</li>
+		<li class="clearfix">
+			<span class="fl">卓玛号</span>
+			<a href="javascript:;" class="number fr">ZM27917814914717419<i>修改</i></a>
+		</li>
+		<li class="clearfix">
+			<span class="fl">水卡卡号</span>
+			<a href="javascript:;" class="fr">8888888877547559</a>
+		</li>
+		<li class="clearfix">
+			<span class="fl">性别</span>
+			<a href="javascript:;" class="sex fr">保密</a>
+		</li>
+		<li class="clearfix">
+			<span class="fl">生日</span>
+			<a href="javascript:;" id="birth" class="birth fr" data-options='{"type":"date","beginYear":1960,"endYear":2020}'>1980-07-08</a>
+			<!--<input type="text" id="birth" class="birth fr" data-options='{"type":"date","beginYear":1960,"endYear":2020}' value="1980-07-08" />-->
+			<!--<input type="text" oninput="OnInput (event)" onpropertychange="OnPropChanged (event)" value="Text field" />-->
+		</li>
+		<li class="clearfix">
+			<span class="fl">收货地址管理</span>
+			<a href="javascript:;" class="address fr">广州省深圳市南山区粤海街道大冲商务楼1806室</a>
+		</li>
+		<li class="clearfix">
+			<span class="fl">手机号码</span>
+			<a href="javascript:;" class="mobile fr">18820203030<i>更换</i></a>
+		</li>
+	</ul>
+	
+	<a href="javascript:;" class="quit">退出登录</a>
+</div>
+
+<div id="mask"></div>
+<!--性别选择窗口-->
+<div id="sexPop">
+	<p>保密</p>
+	<p>男</p>
+	<p>女</p>
+	<a href="javascript:;" class="close">取消</a>
+</div>
+
+<script src="static/js/FJL.min.js"></script>
+<script src="static/js/FJL.picker.min.js"></script>
+<script type="text/javascript">
+$(document).ready(function () {	
+	//日期选择部分
+	(function($) {
+		$.init();
+		var result = $('#birth')[0];
+		var btns = $('.birth');
+		btns.each(function(i, btn) {
+			btn.addEventListener('tap', function() {
+				var optionsJson = this.getAttribute('data-options') || '{}';
+				var options = JSON.parse(optionsJson);
+				var id = this.getAttribute('id');
+				/*
+				 * 首次显示时实例化组件
+				 * 示例为了简洁，将 options 放在了按钮的 dom 上
+				 * 也可以直接通过代码声明 optinos 用于实例化 DtPicker
+				 */
+				var picker = new $.DtPicker(options);						
+				picker.show(function(rs) {
+					/*
+					 * rs.value 拼合后的 value
+					 * rs.text 拼合后的 text
+					 * rs.y 年，可以通过 rs.y.vaue 和 rs.y.text 获取值和文本
+					 * rs.m 月，用法同年
+					 * rs.d 日，用法同年
+					 * rs.h 时，用法同年
+					 * rs.i 分（minutes 的第二个字母），用法同年
+					 */
+					result.innerText = rs.text;
+					/* 
+					 * 返回 false 可以阻止选择框的关闭
+					 * return false;
+					 */
+					/*
+					 * 释放组件资源，释放后将将不能再操作组件
+					 * 通常情况下，不需要示放组件，new DtPicker(options) 后，可以一直使用。
+					 * 当前示例，因为内容较多，如不进行资原释放，在某些设备上会较慢。
+					 * 所以每次用完便立即调用 dispose 进行释放，下次用时再创建新实例。
+					 */
+					picker.dispose();
+					//console.log("over");
+					//console.log("ok");
+					aa();
+				});
+			}, false);
+		});
+	})(mui);	
+	
+
+	function aa(){
+		$("input").val("ok");
+ 		
+	}
+	
+	//var temp = $("#info ul li a.birth").text();
+	//console.log(temp);
+	
+	
+//	$('#change').bind('input propertychange', function() {  
+//	    console.log("666");
+//	});  
+
+    // Firefox, Google Chrome, Opera, Safari, Internet Explorer from version 9
+//      function OnInput (event) {
+//          alert ("The new content: " + event.target.value);
+//      }
+//  // Internet Explorer
+//      function OnPropChanged (event) {
+//          if (event.propertyName.toLowerCase () == "value") {
+//              alert ("The new content: " + event.srcElement.value);
+//          }
+//      }
+})
+</script>
+</body>
+</html>
